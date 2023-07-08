@@ -5,15 +5,15 @@ from django.http import HttpResponse
 import random
 
 
-
-
 def home(request):
     '''
     Take in request (Django sends request)
     Return HTML as a response (We pick to return the response)
     '''
-    name = "John F Kennedy"
-    number = random.randint(1, 2344447)
+    name = "John F Kennedy" # Hard Coded data
+    number = random.randint(1, 2344447) # pseudo random 
+
+    # from the database
     H1_STRING = f'''
     <h1>Hello "{name}" - {number}</h1>
     '''
