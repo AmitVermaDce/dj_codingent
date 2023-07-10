@@ -7,7 +7,7 @@ import random
 from articles.models import Article
 
 
-def home(request):
+def home_view(request):
     '''
     Take in request (Django sends request)
     Return HTML as a response (We pick to return the response)
