@@ -14,8 +14,10 @@ def home(request):
     '''
     random_id = random.randint(1,3)
     article_obj = Article.objects.get(id=random_id)
+    article_queryset = Article.objects.all()
     context = {
         "object": article_obj,
+        "object_list": article_queryset,
         "id": random_id,
         "title": article_obj.title,
         "content": article_obj.content,

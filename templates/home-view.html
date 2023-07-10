@@ -3,4 +3,9 @@
 <i>Object ID: {{id}}</i>
 <h1>{{title}}</h1>
 <p>{{content}}</p>
+<ul>
+    {% for object in object_list %}
+    <li>{{ object }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}
