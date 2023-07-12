@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -11,10 +11,13 @@ def login_view(request):
             context = {"error": "Invalid username or password !!!!!!"}
             return render(request, "accounts/login.html", context)
         login(request, user)
-        return redirect("/articles/create/")
+        return redirect("/articles/create/")    
     return render(request, 'accounts/login.html', {})
 
 def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("/accounts/login/")
     return render(request, 'accounts/logout.html', {})
 
 def register_view(request):
