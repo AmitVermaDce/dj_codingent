@@ -28,3 +28,15 @@ def article_search_view(request):
     }
 
     return render(request, "articles/search.html", context)
+
+
+def article_create_view(request):
+    context = {}
+    if request.method == 'POST':
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        context["object"] = Article.objects.create(title=title, content=content)
+        context["created"] = True       
+    
+    return render(request, 'articles/create.html', context)
+

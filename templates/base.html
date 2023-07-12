@@ -4,13 +4,17 @@
 
     </head>
     <body>
-        <!-- <h1>Hello World ......</h1> -->
+        <a href="/">Home</a>      
+        <div style="margin-top: 30px; padding: 10px; border: 5px solid gray;">
+            <h1>Search form</h1>
         <form action="/articles/" method="GET">
-            <input type="text" name="query">
+            <input type="text" name="query" placeholder="id only">
             <input type="submit">
-        </form>        
+        </form>       
+        </div> 
         <br>
         {% block content %}
         {% endblock content %}
+        
     </body>
 </html>
