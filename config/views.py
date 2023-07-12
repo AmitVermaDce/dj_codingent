@@ -7,6 +7,7 @@ import random
 from articles.models import Article
 
 
+
 def home_view(request):
     '''
     Take in request (Django sends request)
