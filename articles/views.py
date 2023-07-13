@@ -35,18 +35,14 @@ def article_search_view(request):
 
 @login_required
 def article_create_view(request):
-    form = ArticleForm()
-     # print(dir(form)) # To view all methods linked with the form object
+    form = ArticleForm(request.POST or None)
     context = {
         "form": form
     }
-    if request.method == 'POST':
-        form = ArticleForm(request.POST)
-        context["form"] = form
-        if form.is_valid():
-            title = form.cleaned_data.get("title")
-            content = form.cleaned_data.get("content")
-            context["object"] = Article.objects.create(title=title, content=content)
-            context["created"] = True   
+    if form.is_valid():
+        title = form.cleaned_data.get("title")
+        content = form.cleaned_data.get("content")
+        context["object"] = Article.objects.create(title=title, content=content)
+        context["created"] = True 
     return render(request, 'articles/create.html', context)
 
