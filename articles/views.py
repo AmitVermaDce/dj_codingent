@@ -40,9 +40,9 @@ def article_create_view(request):
         "form": form
     }
     if form.is_valid():
-        title = form.cleaned_data.get("title")
-        content = form.cleaned_data.get("content")
-        context["object"] = Article.objects.create(title=title, content=content)
+        article_obj = form.save()
+        context["form"] = ArticleForm()
+        context["object"] = article_obj
         context["created"] = True 
     return render(request, 'articles/create.html', context)
 
