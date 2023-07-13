@@ -16,8 +16,6 @@ class ArticleForm(forms.ModelForm):
         return data
 
 
-
-
 class ArticleFormOld(forms.Form):
     title = forms.CharField()
     content = forms.CharField()
