@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Article
+from .forms import ArticleForm
 
 
 # Create your views here.
@@ -34,12 +35,18 @@ def article_search_view(request):
 
 @login_required
 def article_create_view(request):
-    context = {}
+    form = ArticleForm()
+     # print(dir(form)) # To view all methods linked with the form object
+    context = {
+        "form": form
+    }
     if request.method == 'POST':
-        title = request.POST.get("title")
-        content = request.POST.get("content")
-        context["object"] = Article.objects.create(title=title, content=content)
-        context["created"] = True       
-    
+        form = ArticleForm(request.POST)
+        context["form"] = form
+        if form.is_valid():
+            title = form.cleaned_data.get("title")
+            content = form.cleaned_data.get("content")
+            context["object"] = Article.objects.create(title=title, content=content)
+            context["created"] = True   
     return render(request, 'articles/create.html', context)
 

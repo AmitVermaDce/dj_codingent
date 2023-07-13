@@ -5,12 +5,7 @@
     <h1>Create Form</h1>
     <form method="POST">        
         {% csrf_token %}
-        <div>
-            <input type="text" name="title" placeholder="Title">
-        </div>
-        <div style="margin-top: 20px;">
-            <textarea type="text" name="content" placeholder="Enter some content here"></textarea>
-        </div>
+        {{ form.as_p }}
         <div style="margin-top: 20px;"></div>
         <button type="submit">Create Article </button>
     </form>
