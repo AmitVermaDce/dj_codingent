@@ -1,20 +1,10 @@
 {% extends 'base.html' %}
-
 {% block content %}
-{% if error %}
-<p style="color: red;">{{ error }}</p> 
-{% endif %}
-
 {% if not request.user.is_authenticated %}
-<h1> Login Form-1</h1>
+<h1> Login Form-2</h1>
 <form method="POST">
     {% csrf_token %}
-    <div style="margin-top: 20px;">
-        <input type="text" placeholder="username" name="username">
-    </div>
-    <div style="margin-top: 20px;">
-        <input type="password" placeholder=" password" name="password">
-    </div>
+    {{ form.as_p }}    
     <div style="margin-top: 20px;"></div>
     <button type="submit">Login</button>
 </form>
