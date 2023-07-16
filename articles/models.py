@@ -1,12 +1,13 @@
 from django.db import models
 from django.utils.text import slugify
 from django.db.models.signals import pre_save, post_save
+from .utils import slugify_instance_title
 
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(max_length=220)
     content = models.TextField()
-    slug = models.SlugField(null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)
@@ -19,14 +20,13 @@ class Article(models.Model):
 def article_pre_save(sender, instance, *args, **kwargs):
     print("Artilcle Pre_save method is called")
     if instance.slug is None:
-        instance.slug = slugify(instance.title)
+        instance = slugify_instance_title(instance)
 
 pre_save.connect(article_pre_save, sender=Article)
 
 def article_post_save(sender, instance, created, *args, **kwargs):
     print("Article Post_save method is called")
     if created:
-        instance.slug = "this is my slug"
-        instance.save()
+        instance = slugify_instance_title(instance, save=True)
 
 post_save.connect(article_post_save, sender=Article)
