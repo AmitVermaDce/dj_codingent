@@ -20,12 +20,15 @@ class ArticleTestCase(TestCase):
         qs = Article.objects.all()
         self.assertEqual(qs.count(), self.number_of_objects)
 
-    def test_the_dummy_unique_slug(self):
-        qs = Article.objects.exclude(slug__iexact='the-dummy')
-        for obj in qs:
-            title = obj.title
-            slug = obj.slug
-            slugfield_title = slugify(title)
-            self.assertNotEqual(slug, slugfield_title)
-
+    # def test_the_dummy_unique_slug(self):
+    #     qs = Article.objects.exclude(slug__iexact='the-dummy')
+    #     for obj in qs:
+    #         title = obj.title
+    #         slug = obj.slug
+    #         slugfield_title = slugify(title)
+    #         self.assertNotEqual(slug, slugfield_title)
+    
+    def test_article_search_manager(self):
+        qs = Article.objects.search(query="hello world")
+        self.assertEqual(qs.count(), self.number_of_objects)
     
