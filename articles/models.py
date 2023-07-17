@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.text import slugify
 from django.db.models.signals import pre_save, post_save
 from .utils import slugify_instance_title
 
