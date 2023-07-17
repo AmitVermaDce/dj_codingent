@@ -10,7 +10,7 @@
     <h3>List of objects - [Titles : content]</h3>
     {% for object in object_list %}
         {% if object.title %}
-        <li><a href="/articles/{{ object.slug }}/">{{ object.title }}</a> : {{ object.content }}</li><br>
+        <li><a href="{{ object.get_absolute_url }}">{{ object.title }}</a> : {{ object.content }}</li><br>
         {% endif %}    
     {% endfor %}
 </ul>

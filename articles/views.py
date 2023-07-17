@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .models import Article
 from .forms import ArticleForm
@@ -25,18 +26,15 @@ def article_detail_view(request, slug=None):
 
 
 def article_search_view(request):
-    query_dict = request.GET
-    try:
-        query = int(query_dict.get('query'))
-    except:
-        query = None
-    article_obj = None
+    query = request.GET.get("query")
+    qs = Article.objects.all()
     if query is not None:
-        article_obj = Article.objects.get(id=query)
+        lookups = Q(title__icontains = query) | Q(content__icontains = query)
+        qs = Article.objects.filter(lookups)
+    print(qs)
     context = {
-        "object": article_obj
+        "objects": qs,
     }
-
     return render(request, "articles/search.html", context)
 
 
@@ -51,5 +49,7 @@ def article_create_view(request):
         context["form"] = ArticleForm()
         context["object"] = article_obj
         context["created"] = True 
+        # return redirect("article-detail", slug=article_obj.slug)
+        return redirect(article_obj.get_absolute_url())
     return render(request, 'articles/create.html', context)
 

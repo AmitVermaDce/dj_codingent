@@ -2,7 +2,9 @@
 
 {% block content %}
 
-{% if object %}
+{% if objects %}
+<p>Total Number of objects: {{ objects.count }}</p>
+{% for object in objects %}
 <table> 
     <caption><h1>Object found with ID: {{object.id}}</h1></caption> 
     <thead> 
@@ -20,6 +22,10 @@
         </tr> 
     </tbody>
 </table>
+{% endfor %}
+
+{% else %}
+<h1> Nothing found inside Database. kindly try out with some other text.</h1>
 
 {% endif %}
 
