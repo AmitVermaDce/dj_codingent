@@ -2,8 +2,10 @@
 
 {% block content %}
 <i>Object ID: {{id}}</i>
+<p style="position:absolute; right:0">Article Created By: {{ user }}</p>
 <h1>{{title}}</h1>
 <p>{{content}}</p>
+
 <!-- <ul>
     <h3>List of objects - [Titles : content]</h3>
     {% for object in object_list %}
