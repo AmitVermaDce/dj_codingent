@@ -4,12 +4,16 @@
 <p>{{message}}</p>
 {% endif %}
 
-<h1>Create Form</h1>
+<h1>Recipe Create Form</h1>
     <form method="POST" action=".">        
         {% csrf_token %}        
-        {{ form_recipe.as_p }}
+        {{ recipe_form.as_p }}
+        {% if ingredient_forms %}
         <h1>Ingredients</h1>
-        {{form_ingredient.as_p}}
+        {% for each_ingredient_form in ingredient_forms %}
+        {{each_ingredient_form.as_p}}
+        {% endfor %}        
+        {% endif %}
         <div style="margin-top: 20px;"></div>
         <button type="submit">Save</button>
     </form>
