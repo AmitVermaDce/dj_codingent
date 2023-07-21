@@ -1,0 +1,14 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+<a href="{% url 'recipes:create' %}" style="position:absolute; right:0; padding: 10px;">Add Recipes</a>
+
+<h2>List of Recipes:</h2>
+{% for object in object_list %}
+<li style="padding: 10px;"><strong><a href="{{object.get_absolute_url}}">{{object.name}}</a></strong>: 
+    <p style="padding-left: 10px;">{{object.description}}</p>
+    <p style="padding-left: 10px;">{{object.directions}}</p>
+    <p style="position: absolute; right: 20px;">Last Updated: {{object.updated}}</p>
+</li>
+{% endfor %}
+{% endblock content %}

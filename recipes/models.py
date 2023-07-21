@@ -1,4 +1,6 @@
 import pint
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.conf import settings
 from django.db import models
 from .validators import validate_unit_measure
@@ -15,6 +17,12 @@ class Recipe(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
+    def get_absolute_url(self):
+        return reverse("recipes:detail", kwargs={"id": self.id})
+    
+    def get_update_url(self):
+        return reverse("recipes:update", kwargs={"id": self.id})
+
 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -27,6 +35,9 @@ class RecipeIngredient(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True) 
+
+    def get_absolute_url(self):
+        return self.recipe.get_absolute_url()
 
     def convert_to_system(self, system="mks"):
         if self.quantity_as_float is None:

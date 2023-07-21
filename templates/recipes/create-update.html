@@ -1,0 +1,15 @@
+{% extends 'recipes/base.html' %}
+{% block content %}
+{% if message %}
+<p>{{message}}</p>
+{% endif %}
+
+<h1>Create Form</h1>
+    <form method="POST" action=".">        
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="margin-top: 20px;"></div>
+        <button type="submit">Save</button>
+    </form>
+
+{% endblock content %}
