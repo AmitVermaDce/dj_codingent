@@ -3,19 +3,13 @@ from .models import Recipe, RecipeIngredient
 
 class RecipeForm(forms.ModelForm):    
     error_css_class = ""
-    required_css_class = 'require-field'
-    # name = forms.CharField(widget=forms.TextInput(attrs={
-    #     "class": "form-control",
-    #     "placeholder": "Recipe Name"
-    # }))
-    # description = forms.CharField(widget=forms.Textarea(attrs={
-    #     "class": "form-control",
-    #     "rows": 3
-    # }))
+    required_css_class = 'required-field'
+    name = forms.CharField(help_text="Help text for name field! <a href='/contact'>Contact Us</a>")
+    # description = forms.CharField(widget=forms.Textarea())
 
     class Meta:
         model = Recipe
-        fields = ["name", "description", "directions",]
+        fields = ["name", "description", "directions"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
