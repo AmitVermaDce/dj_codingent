@@ -11,11 +11,25 @@
 <p style="position: absolute; right: 20px;"><strong>Updated:</strong>Last Updated: {{object.updated}}</p>
 
 {% for ingredient in object.recipeingredient_set.all %}
-<p style="padding-left: 10px;"><strong>Ingredient Name: </strong> {{ingredient.name}}</p> 
-<p style="padding-left: 10px;"><strong>Quantity: </strong> {{ingredient.quantity_as_float }}</p>
-<p style="padding-left: 10px;"><strong>Unit:</strong>{{ingredient.unit}}</p>
-<p style="padding-left: 10px;"><strong>MKS: </strong> {{ingredient.as_mks }}</p>
-<p style="padding-left: 10px;"><strong>Imperial: </strong> {{ingredient.as_imperial }}</p>
+<table>
+    <tr>
+      <th>Ingredient Name</th>
+      <th style="background-color: yellow">Quantity</th>
+      <th>Unit</th>
+      <th>Unit(MKS)</th>
+      <th>Unit(Imperial)</th>      
+    </tr>
+    <tr>
+      <td>{{ingredient.name}}</td>
+      <td>{{ingredient.quantity_as_float}}</td>
+      <td>{{ingredient.unit}}</td>
+      <td>{{ingredient.as_mks}}</td>
+      <td>{{ingredient.as_imperial}}</td>
+    </tr>    
+  </table>
+  <br>  
 {% endfor %}
+
+
 
 {% endblock content %}

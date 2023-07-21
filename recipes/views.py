@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
-from .forms import RecipeForm
+from .forms import RecipeForm, RecipeIngredientForm
 
 # CRUD: Create Retrieve Update & Delete
 
@@ -40,15 +40,21 @@ def recipe_create_view(request, id=None):
 @login_required
 def recipe_update_view(request, id=None):
     obj = get_object_or_404(Recipe, id=id, user=request.user)
-    # form = RecipeForm(request.POST or None , instance=obj) 
-    form = RecipeForm(request.POST or None, instance=obj)   
+    form_recipe = RecipeForm(request.POST or None, instance=obj)   
+    form_ingredient = RecipeIngredientForm(request.POST or None)
     context = {
-        "form": form,
+        "form_recipe": form_recipe,
+        "form_ingredient": form_ingredient,
         "object": obj,
     }
-    if form.is_valid():
-        obj = form.save()
-        obj.save()  
+    if all([form_recipe.is_valid(), form_ingredient.is_valid()]):
+        parent = form_recipe.save(commit=False)
+        parent.save()
+        child = form_ingredient.save(commit=False)
+        child.recipe = parent
+        child.save()
+        print("form_recipe", form_recipe.cleaned_data)
+        print("form_ingredient", form_ingredient.cleaned_data)
         context["message"] = "Data saved."
         return redirect(obj.get_absolute_url())
     return render(request, "recipes/create-update.html", context)
