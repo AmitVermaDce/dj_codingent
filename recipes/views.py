@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Recipe
+from django.forms.models import modelformset_factory
+from .models import Recipe, RecipeIngredient
 from .forms import RecipeForm, RecipeIngredientForm
 
 # CRUD: Create Retrieve Update & Delete
@@ -40,25 +41,25 @@ def recipe_create_view(request, id=None):
 @login_required
 def recipe_update_view(request, id=None):
     obj = get_object_or_404(Recipe, id=id, user=request.user)
-    recipe_form = RecipeForm(request.POST or None, instance=obj)   
-    ingredient_forms = []
-    for ingredient_obj in obj.recipeingredient_set.all():
-        ingredient_forms.append(
-            RecipeIngredientForm(request.POST or None, instance=ingredient_obj)
-        )
-
+    recipe_form = RecipeForm(request.POST or None, instance=obj)
+    RecipeIngredientFormset = modelformset_factory(RecipeIngredient, 
+                                            form=RecipeIngredientForm,
+                                            extra=0)
+    qs = obj.recipeingredient_set.all()
+    formset = RecipeIngredientFormset(request.POST or None, queryset=qs)   
     context = {
         "recipe_form": recipe_form,
-        "ingredient_forms": ingredient_forms,
+        "formset": formset,
         "object": obj,
     }
-    all_ingredient_forms = all([form.is_valid() for form in ingredient_forms])
-    if all_ingredient_forms and recipe_form.is_valid():
+    
+    if all([recipe_form, formset.is_valid()]):
         parent = recipe_form.save(commit=False)
         parent.save()
-        for each_ingredient_form in ingredient_forms:
-            child = each_ingredient_form.save(commit=False)
-            child.recipe = parent
+        for form in formset:
+            child = form.save(commit=False)
+            if child.recipe is None:
+                child.recipe = parent
             child.save()
         context["message"] = "Data saved."
         return redirect(obj.get_absolute_url())

@@ -8,11 +8,9 @@
     <form method="POST" action=".">        
         {% csrf_token %}        
         {{ recipe_form.as_p }}
-        {% if ingredient_forms %}
+        {% if formset %}
         <h1>Ingredients</h1>
-        {% for each_ingredient_form in ingredient_forms %}
-        {{each_ingredient_form.as_p}}
-        {% endfor %}        
+        {{ formset.as_p }}
         {% endif %}
         <div style="margin-top: 20px;"></div>
         <button type="submit">Save</button>
