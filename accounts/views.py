@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -36,9 +38,6 @@ def logout_view(request):
         return redirect("/accounts/login/")
     return render(request, 'accounts/logout.html', {})
 
-def register_view(request):
-    return render(request, 'accounts/register.html', {})
-
 
 def register_view(request):
     form = UserCreationForm(request.POST or None)    
@@ -49,3 +48,12 @@ def register_view(request):
         "form": form
     }
     return render(request, "accounts/register.html", context)
+
+
+def check_username(request):
+    username = request.POST.get('username')
+    print(username)
+    if get_user_model().objects.filter(username=username).exists():
+        return HttpResponse("<div style= 'color:red;' >This username already exists</div>")
+    else:
+        return HttpResponse("<div style= 'color:green;' >This username is available</div>")

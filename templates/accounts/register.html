@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
+
 {% if not request.user.is_authenticated %}
 <h1> Register Form</h1>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <!-- {{ form.as_p- }} -->
+    <div class="form-group mb-3">
+        <label>{{ form.username.label_tag }}</label>
+        {{ form.username.errors }}
+        {% render_field form.username class="form-control" hx-post="/accounts/check_username/" hx-trigger="keyup changed" hx-target="#username-error" %}
+        <div id="username-error"></div>
+        <br>
+
+        <label>{{ form.password1.label_tag }}</label>
+        {{ form.password1.errors }}
+        {% render_field form.password1 class="form-control" %}
+
+        <label>{{ form.password2.label_tag }}</label>
+        {{ form.password2.errors }}
+        {% render_field form.password2 class="form-control" %}
+    </div>
+    <!-- {{ form.as_p }} -->
     <div style="margin-top: 20px;"></div>
     <button type="submit">Login</button>
 </form>

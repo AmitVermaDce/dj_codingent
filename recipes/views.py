@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 from .models import Recipe, RecipeIngredient
 from .forms import RecipeForm, RecipeIngredientForm
+from django.http import HttpResponse
 
 # CRUD: Create Retrieve Update & Delete
 
@@ -22,6 +23,20 @@ def recipe_detail_view(request, id=None):
         "object": obj,
     }
     return render(request, "recipes/detail.html", context)
+
+@login_required
+def recipe_detail_hx_view(request, id=None):
+    try:
+        obj = Recipe.objects.get(id=id, user=request.user)
+    except:
+        obj = None
+    if obj is None:
+        return HttpResponse("Not Found!!")
+    context = {
+        "object": obj
+    }
+    return render(request, "recipes/partials/detail.html", context)
+    
 
 
 @login_required

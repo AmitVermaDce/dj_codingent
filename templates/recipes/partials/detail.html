@@ -1,0 +1,27 @@
+<a href="{% url 'recipes:search' %}">List of Recipes</a>
+<p style="padding-left: 10px;"><strong>Recipe Name: {{object.name}}</strong>
+    {% if object.get_update_url %}<a href="{{ object.get_update_url }}"> (Edit)</a> {% endif %}    
+</p> 
+<p style="padding-left: 10px;"><strong>Description: </strong> {{object.description}}</p>
+<p style="padding-left: 10px;"><strong>Directions: </strong> {{object.directions}}</p>
+<p style="position: absolute; right: 20px;"><strong>Updated:</strong>Last Updated: {{object.updated}}</p>
+
+{% for ingredient in object.recipeingredient_set.all %}
+<table>
+    <tr>
+      <th>Ingredient Name</th>
+      <th style="background-color: yellow">Quantity</th>
+      <th>Unit</th>
+      <th>Unit(MKS)</th>
+      <th>Unit(Imperial)</th>      
+    </tr>
+    <tr>
+      <td>{{ingredient.name}}</td>
+      <td>{{ingredient.quantity_as_float}}</td>
+      <td>{{ingredient.unit}}</td>
+      <td>{{ingredient.as_mks}}</td>
+      <td>{{ingredient.as_imperial}}</td>
+    </tr>    
+  </table>
+  <br>  
+{% endfor %}
