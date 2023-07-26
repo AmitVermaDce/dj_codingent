@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="align-center col-10 offset-1">
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="lead ml-0">My Films</p>
+        <form class="d-flex align-items-center" method="POST">
+            {% csrf_token %}
+            <input type="text" name="filmname" class="form-control-sm mr-2">
+            <button type="submit" hx-post="{% url 'films:add-films' %}" hx-target="#film-list" class="btn btn-success btn-sm">Add Film</button>
+        </form>
+    </div>
+    <hr />
+    <div id="film-list">
+        {% include 'films/partials/films-list.html' %}
+    </div>
+</div>
+{% endblock content %}
