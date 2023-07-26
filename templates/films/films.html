@@ -7,7 +7,7 @@
         <form class="d-flex align-items-center" method="POST">
             {% csrf_token %}
             <input type="text" name="filmname" class="form-control-sm mr-2">
-            <button type="submit" hx-post="{% url 'films:add-films' %}" hx-target="#film-list" class="btn btn-success btn-sm">Add Film</button>
+            <button type="submit" hx-post="{% url 'films:add-film' %}" hx-target="#film-list" class="btn btn-success btn-sm">Add Film</button>
         </form>
     </div>
     <hr />
