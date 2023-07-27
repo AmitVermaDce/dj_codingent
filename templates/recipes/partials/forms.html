@@ -1,4 +1,5 @@
-<form method="POST" action="." hx-post="{% if url %}{{url}}{% else %}.{% endif %}" hx-swap="outerHTML">        
+<form method="POST" action="." hx-post="{% if url %}{{url}}{% else %}.{% endif %}" 
+hx-swap="outerHTML" hx-trigger="{% if form.instance.id %} change delay:500ms, {% else %}submit{% endif %}">        
     {% csrf_token %}        
     
     {% if message %}    
