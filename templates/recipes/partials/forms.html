@@ -1,4 +1,4 @@
-<form method="POST" action="." hx-post="." hx-swap="outerHTML">        
+<form method="POST" action="." hx-post="{% if url %}{{url}}{% else %}.{% endif %}" hx-swap="outerHTML">        
     {% csrf_token %}        
     
     {% if message %}    
@@ -15,20 +15,7 @@
         {% endif %}
     </div>
     {% endfor %}
-
-    {% if formset %}
-    <h1>Ingredients</h1>
-    {{ formset.management_form }}
-    <div id = 'ingredient-form-list'>
-        {% for form in formset %}       
-            <div class="ingredient-form">
-                {{form.as_p}}
-            </div>
-        {% endfor %}
-    </div>
-    <div id="empty-form", class="hidden">{{ formset.empty_form.as_p }}</div>  
-    <button id="add-more" type="button">Add More</button>      
-    {% endif %}
+    
     <div style="margin-top: 20px;"></div>
-    <button type="submit">Save</button>
+    <button class="htmx-inverted-indicator" type="submit">Save</button>
 </form>

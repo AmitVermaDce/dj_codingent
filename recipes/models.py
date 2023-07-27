@@ -26,7 +26,7 @@ class Recipe(models.Model):
     def get_hx_url(self):
         return reverse("recipes:hx-detail", kwargs={"id": self.id})
     
-    def get_ingredient_children(self):
+    def get_ingredients_children(self):
         return self.recipeingredient_set.all()
 
 
@@ -44,6 +44,13 @@ class RecipeIngredient(models.Model):
 
     def get_absolute_url(self):
         return self.recipe.get_absolute_url()
+    
+    def get_hx_edit_url(self):
+        kwargs = {
+            "parent_id": self.recipe.id,
+            "id": self.id,
+        }
+        return reverse("recipes:hx-ingredient-detail", kwargs=kwargs)
 
     def convert_to_system(self, system="mks"):
         if self.quantity_as_float is None:
