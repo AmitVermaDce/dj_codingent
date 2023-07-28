@@ -23,6 +23,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("films/", include("films.urls")),
     path("recipes/", include("recipes.urls")),
-    path("articles/", include("articles.urls")),   
+    path("articles/", include("articles.urls")),
+    path("search/", include("search.urls")),   
     
 ]

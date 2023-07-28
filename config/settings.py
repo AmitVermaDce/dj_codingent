@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'accounts',
     'articles',
-    'recipes',    
+    'recipes', 
+    'search',   
     'films',
 ]
 
