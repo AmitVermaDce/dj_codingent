@@ -19,4 +19,5 @@ hx-swap="outerHTML" hx-trigger="{% if form.instance.id %} change delay:500ms, {%
     
     <div style="margin-top: 20px;"></div>
     <button class="htmx-inverted-indicator" type="submit">Save</button>
+    <a href="{{ object.get_delete_url }}">Delete</a>
 </form>

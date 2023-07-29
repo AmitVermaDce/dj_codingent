@@ -1,6 +1,9 @@
-<a href="{% url 'recipes:search' %}">List of Recipes</a>
+<a href="{% url 'recipes:list' %}">List of Recipes</a>
 <p style="padding-left: 10px;"><strong>Recipe Name: {{object.name}}</strong>
-    {% if object.get_update_url %}<a href="{{ object.get_update_url }}"> (Edit)</a> {% endif %}    
+    {% if object.get_update_url %}
+    <a href="{{ object.get_update_url }}"> (Edit)</a>  
+    <a href="{{ object.get_delete_url }}"> (Remove)</a> 
+    {% endif %}    
 </p> 
 <p style="padding-left: 10px;"><strong>Description: </strong> {{object.description}}</p>
 <p style="padding-left: 10px;"><strong>Directions: </strong> {{object.directions}}</p>
