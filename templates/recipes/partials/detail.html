@@ -2,7 +2,10 @@
 <p style="padding-left: 10px;"><strong>Recipe Name: {{object.name}}</strong>
     {% if object.get_update_url %}
     <a href="{{ object.get_update_url }}"> (Edit)</a>  
-    <a href="{{ object.get_delete_url }}"> (Remove)</a> 
+    <a href="{{ object.get_delete_url }}" 
+       hx-post="{{ object.get_delete_url }}" 
+       hx-confirm="Are you sure you want to delete it?"
+       hx-trigger="click"> (Remove)</a> 
     {% endif %}    
 </p> 
 <p style="padding-left: 10px;"><strong>Description: </strong> {{object.description}}</p>
